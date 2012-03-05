@@ -24,22 +24,23 @@
     </fileset>
   </path>
 
-  <target name="clean">
+  <target name="clean" description="Deletes build artifacts.">
     <delete dir="${build.dir}"/>
     <delete dir="${jar.dir}"/>
+    <delete dir="${reports.dir}"/>
   </target>
 
-  <target name="compile">
+  <target name="compile" description="Compiles the application.">
     <mkdir dir="${classes.dir}"/>
     <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="app.classpath"/>
   </target>
 
-  <target name="compile.tests">
+  <target name="compile.tests" description="Compiles the tests.">
     <mkdir dir="${classes.tests}"/>
     <javac srcdir="${src.tests}" destdir="${classes.tests}" classpathref="tests.classpath"/>
   </target>
 
-  <target name="jar" depends="compile">
+  <target name="jar" depends="compile" description="Packages the application into a jar.">
     <mkdir dir="${jar.dir}"/>
     <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
       <manifest>
@@ -48,7 +49,7 @@
     </jar>
   </target>
 
-  <target name="test" depends="compile,compile.tests">
+  <target name="test" depends="compile,compile.tests" description="Compiles application and tests, then runs tests.">
     <mkdir dir="${reports.tests}"/>
     <junit printsummary="yes" haltonfailure="yes">
       <classpath refid="tests.classpath"/>
@@ -64,6 +65,6 @@
     </junit>
   </target>
 
-  <target name="main" depends="clean,test,jar"/>
+  <target name="main" depends="clean,test,jar" description="Cleans, compiles, tests, and jars the application."/>
 
 </project>
