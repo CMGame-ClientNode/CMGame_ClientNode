@@ -1,0 +1,10 @@
+.DS_Store*
+
+### Generated Folders #####
+reports/
+build/
+out/
+
+### IntelliJ IDEA files ######
+*.iml
+.idea/

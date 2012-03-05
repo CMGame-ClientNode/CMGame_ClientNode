@@ -1,0 +1,73 @@
+<project name="HelloWorld" basedir="." default="main">
+
+  <property name="src.dir" value="src"/>
+  <property name="src.tests" value="tests"/>
+
+  <property name="build.dir" value="build"/>
+  <property name="classes.dir" value="${build.dir}/classes"/>
+  <property name="jar.dir" value="${build.dir}/jar"/>
+  <property name="classes.tests" value="${build.dir}/test-classes"/>
+  <property name="reports.dir" value="reports"/>
+  <property name="reports.tests" value="${reports.dir}/tests"/>
+
+  <property name="main-class" value="cmgame.HelloWorld"/>
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+    <delete dir="${jar.dir}"/>
+  </target>
+
+  <target name="compile">
+    <mkdir dir="${classes.dir}"/>
+    <javac srcdir="${src.dir}" destdir="${classes.dir}">
+      <classpath>
+        <pathelement location="${classes.dir}"/>
+        <pathelement location="${classes.tests}"/>
+        <!--<pathelement path="${java.class.path}"/>-->
+        <fileset dir="lib">
+          <include name="junit*.jar"/>
+        </fileset>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="compile.tests">
+    <mkdir dir="${classes.tests}"/>
+    <javac srcdir="${src.tests}" destdir="${classes.tests}"/>
+  </target>
+
+  <target name="jar" depends="compile">
+    <mkdir dir="${jar.dir}"/>
+    <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="${main-class}"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="test" depends="compile,compile.tests">
+    <mkdir dir="${reports.tests}"/>
+    <junit printsummary="yes" haltonfailure="yes">
+      <classpath>
+        <pathelement location="${classes.dir}"/>
+        <pathelement location="${classes.tests}"/>
+        <!--<pathelement path="${java.class.path}"/>-->
+        <fileset dir="lib">
+          <include name="junit*.jar"/>
+        </fileset>
+      </classpath>
+
+      <formatter type="plain"/>
+
+      <batchtest fork="yes" todir="${reports.tests}">
+        <fileset dir="${src.tests}">
+          <include name="**/*Test.java"/>
+          <!--<exclude name="**/AllTests.java"/>-->
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+
+  <target name="main" depends="clean,test,jar"/>
+
+</project>
