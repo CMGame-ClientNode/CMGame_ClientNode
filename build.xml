@@ -10,7 +10,7 @@
   <property name="reports.dir" value="reports"/>
   <property name="reports.tests" value="${reports.dir}/tests"/>
 
-  <property name="main-class" value="cmgame.HelloWorld"/>
+  <property name="main-class" value="cmgame.client.REPL"/>
 
   <path id="app.classpath">
     <pathelement location="${classes.dir}"/>
