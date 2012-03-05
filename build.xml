@@ -12,6 +12,18 @@
 
   <property name="main-class" value="cmgame.HelloWorld"/>
 
+  <path id="app.classpath">
+    <pathelement location="${classes.dir}"/>
+  </path>
+
+  <path id="tests.classpath">
+    <path refid="app.classpath"/>
+    <pathelement location="${classes.tests}"/>
+    <fileset dir="lib">
+      <include name="junit*.jar"/>
+    </fileset>
+  </path>
+
   <target name="clean">
     <delete dir="${build.dir}"/>
     <delete dir="${jar.dir}"/>
@@ -19,21 +31,12 @@
 
   <target name="compile">
     <mkdir dir="${classes.dir}"/>
-    <javac srcdir="${src.dir}" destdir="${classes.dir}">
-      <classpath>
-        <pathelement location="${classes.dir}"/>
-        <pathelement location="${classes.tests}"/>
-        <!--<pathelement path="${java.class.path}"/>-->
-        <fileset dir="lib">
-          <include name="junit*.jar"/>
-        </fileset>
-      </classpath>
-    </javac>
+    <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="app.classpath"/>
   </target>
 
   <target name="compile.tests">
     <mkdir dir="${classes.tests}"/>
-    <javac srcdir="${src.tests}" destdir="${classes.tests}"/>
+    <javac srcdir="${src.tests}" destdir="${classes.tests}" classpathref="tests.classpath"/>
   </target>
 
   <target name="jar" depends="compile">
@@ -48,14 +51,7 @@
   <target name="test" depends="compile,compile.tests">
     <mkdir dir="${reports.tests}"/>
     <junit printsummary="yes" haltonfailure="yes">
-      <classpath>
-        <pathelement location="${classes.dir}"/>
-        <pathelement location="${classes.tests}"/>
-        <!--<pathelement path="${java.class.path}"/>-->
-        <fileset dir="lib">
-          <include name="junit*.jar"/>
-        </fileset>
-      </classpath>
+      <classpath refid="tests.classpath"/>
 
       <formatter type="plain"/>
 
