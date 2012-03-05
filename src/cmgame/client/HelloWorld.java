@@ -33,4 +33,12 @@ public class HelloWorld {
         }
 
     }
+
+    public String getGreeting() {
+        return "Hello World!";
+    }
+
+    public String eval(String in) {
+        return "exit".equals(in) ? null : in;
+    }
 }
