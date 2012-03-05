@@ -8,3 +8,6 @@ out/
 ### IntelliJ IDEA files ######
 *.iml
 .idea/
+
+### Eclipse files #####
+bin/
