@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+// Tests Hello World
 public class HelloWorldTest {
 
     private HelloWorld unit;
