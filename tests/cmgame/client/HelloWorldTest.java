@@ -17,17 +17,25 @@ public class HelloWorldTest {
 
     @Test
     public void shouldGreet() throws Exception {
-        assertEquals("Hello World!", unit.getGreeting());
+        assertEquals(
+                "Hello World!\n" +
+                "Enter '#name', '#weather', or '#exit':",
+                unit.getGreeting());
     }
 
     @Test
-    public void shouldPrint() throws Exception {
-        assertEquals("bob", unit.eval("bob"));
+    public void shouldSayYourName() throws Exception {
+        // set mode
+        unit.eval("#name");
+
+        // do test
+        String result = unit.eval("Bob");
+        assertEquals("Bob", result);
     }
 
     @Test
     public void shouldEvalExitAsNull() throws Exception {
-        assertNull("When the user enters 'exit' then app returns null so REPL will exit.",
-                unit.eval("exit"));
+        assertNull("When the user enters '#exit' then app returns null so REPL will exit.",
+                unit.eval("#exit"));
     }
 }
