@@ -1,3 +1,3 @@
 # Plain Text One
 
-To get Started, see the [[wiki]].
+To get Started, see the [wiki](./wiki).
