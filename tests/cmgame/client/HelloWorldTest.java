@@ -24,13 +24,28 @@ public class HelloWorldTest {
     }
 
     @Test
-    public void shouldSayYourName() throws Exception {
+    public void shouldReverseName() throws Exception {
         // set mode
-        unit.eval("#name");
+        String result = unit.eval("#name");
+        assertEquals("Enter your first name:", result);
 
-        // do test
-        String result = unit.eval("Bob");
-        assertEquals("Bob", result);
+        result = unit.eval("John");
+        assertEquals("Enter your last name:", result);
+
+        result = unit.eval("Smith");
+        assertEquals(
+                "Hello Smith, John.\n" +
+                "Enter your first name:",
+                result);
+
+        result = unit.eval("Bob");
+        assertEquals("Enter your last name:", result);
+
+        result = unit.eval("Martin");
+        assertEquals(
+                "Hello Martin, Bob.\n" +
+                "Enter your first name:",
+                result);
     }
 
     @Test
